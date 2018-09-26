@@ -1,25 +1,10 @@
-<?php 
+<?php
 
 namespace models;
 
-class Blog{
-    public function insert()
-    {
+class Blog extends Model
+{
+    protected $tableName = 'blog';
+    protected $fillable = ['title', 'content', 'is_show'];
 
-    }
-
-    public function update()
-    {
-
-    }
-
-    public function delete()
-    {
-        
-    }
-
-    public function search()
-    {
-
-    }
 }

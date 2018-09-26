@@ -1,8 +1,11 @@
-<?php 
+<?php
 
 namespace controllers;
 
-class BlogController{   
+use models\Blog;
+
+class BlogController
+{
     /**
      * 列表页
      */
@@ -11,7 +14,7 @@ class BlogController{
         view('blog.index');
     }
 
-    /** 
+    /**
      * 显示添加的表单
      */
     public function create()
@@ -24,7 +27,11 @@ class BlogController{
      */
     public function insert()
     {
-
+        $blog = new Blog;
+        $blog->fill($_POST);
+        
+        $blog->insert();
+       
     }
 
     /**
@@ -40,7 +47,7 @@ class BlogController{
      */
     public function update()
     {
-        
+
     }
 
     /**

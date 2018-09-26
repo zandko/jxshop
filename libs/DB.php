@@ -7,19 +7,19 @@ use PDOException;
 
 class DB
 {
-    private static $_pdo;
+    private $_pdo;
     private static $_instance;
-    private static $_error;
+    private $_error;
     private function __clone()
     {}
     private function __construct()
     {
         try {
-            self::$pdo = new PDO("mysql:host=127.0.0.1;dbname=jxshop", 'root', '123456');
-            self::$pdo->exec("SET NAMES utf8");
+            $this->_pdo = new PDO("mysql:host=127.0.0.1;dbname=jxshop", 'root', '123456');
+            $this->_pdo->exec("SET NAMES utf8");
         } catch (PDOException $e) {
-            self::$_error = $e->getMessage();
-            die(self::$_error);
+            $this->_error = $e->getMessage();
+            die($this->_error);
         }
 
     }
@@ -30,5 +30,15 @@ class DB
             self::$_instance = new self;
         }
         return self::$_instance;
+    }
+
+    public function prepare($sql)
+    {
+        return $this->_pdo->prepare($sql);
+    }
+
+    public function exec($sql)
+    {
+        return $this->_pdo->exec($sql);
     }
 }

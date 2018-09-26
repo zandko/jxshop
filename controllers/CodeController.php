@@ -2,6 +2,9 @@
 
 namespace controllers;
 
+use libs\DB;
+use PDO;
+
 class CodeController
 {
     /**
@@ -10,6 +13,10 @@ class CodeController
      */
     public function currency($path, $tableName)
     {
+        $code = DB::getInstance();
+        $stmt = $code->prepare("SHOW FULL FIELDS FROM $tableName");
+        $stmt->execute();
+        $fields = $stmt->fetchAll(PDO::FETCH_ASSOC);
         ob_start();
         include ROOT . "templates/{$path}.html";
         $str = ob_get_clean();
@@ -43,6 +50,7 @@ class CodeController
          */
         @mkdir(ROOT . 'views/' . $tableName);
         chmod(ROOT . 'views/' . $tableName, 0777);
+
         /**
          * 生成视图文件
          */

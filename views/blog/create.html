@@ -17,56 +17,37 @@
         <div style="clear:both"></div>
     </h1>
     <div class="main-div">
-        <form action="__GROUP__/Category/categoryAdd" method="post" name="theForm" enctype="multipart/form-data">
+        <form action="/blog/insert" method="post" enctype="multipart/form-data">
             <table width="100%" id="general-table">
+                
                 <tr>
-                    <td class="label">分类名称:</td>
+                    <td class="label">
+                        标题:</td>
                     <td>
-                        <input type='text' name='cat_name' maxlength="20" value='' size='27' />
-                        <font color="red">*</font>
+                                                <input type='text' name="title" maxlength="20" size='27' />
+                                                <font color="red">*</font>
                     </td>
                 </tr>
+                
                 <tr>
-                    <td class="label">上级分类:</td>
+                    <td class="label">
+                        内容:</td>
                     <td>
-                        <select name="parent_id">
-                            <option value="0">顶级分类</option>
-                            <foreach name="list" item="val">
-                                <option value="<{$val.cat_id}>">
-                                    < {$val.lev|str_repeat='&nbsp;&nbsp;' ,###}>
-                                        < {$val.cat_name}>
-                                </option>
-                            </foreach>
-                        </select>
+                                                <textarea name="content" id="" cols="70" rows="10"></textarea>
+                                                <font color="red">*</font>
                     </td>
                 </tr>
+                
                 <tr>
-                    <td class="label">排序:</td>
+                    <td class="label">
+                        是否显示:</td>
                     <td>
-                        <input type="text" name='sort_order' value="50" size="15" />
+                                                <input type="radio" name="is_show" value="y" checked> 是
+                        <input type="radio" name="is_show" value="n"> 否
+                                                <font color="red">*</font>
                     </td>
                 </tr>
-                <tr>
-                    <td class="label">是否显示:</td>
-                    <td>
-                        <input type="radio" name="is_show" value="1" checked="true" /> 是
-                        <input type="radio" name="is_show" value="0" /> 否
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">导航显示:</td>
-                    <td>
-                        <input type="radio" name="is_nav" value="1" checked="true" /> 是
-                        <input type="radio" name="is_nav" value="0" /> 否
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">关键字:</td>
-                    <td>
-                        <input type="text" name="keywords" value='' size="50">
-                    </td>
-                </tr>
-            </table>
+                            </table>
             <div class="button-div">
                 <input type="submit" value=" 确定 " />
                 <input type="reset" value=" 重置 " />

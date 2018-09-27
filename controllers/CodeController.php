@@ -7,30 +7,40 @@ use PDO;
 
 class CodeController
 {
-    /**
-     * 参数1：引入的文件
-     * 参数2：生成的文件名
-     */
-    public function currency($path, $tableName)
-    {
-        $code = DB::getInstance();
-        $stmt = $code->prepare("SHOW FULL FIELDS FROM $tableName");
-        $stmt->execute();
-        $fields = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        ob_start();
-        include ROOT . "templates/{$path}.html";
-        $str = ob_get_clean();
-        file_put_contents(ROOT . 'views/' . $tableName . '/' . $path . '.html', $str);
-    }
-
     public function make()
     {
+        /**
+         * 接收参数(生成代码的表名)
+         */
         $tableName = $_GET['name'];
+
+        /**
+         * 搜集所有字段的白名单
+         */
+        $db = DB::getInstance();
+        $stmt = $db->prepare("SHOW FULL FIELDS FROM $tableName");
+        $stmt->execute();
+        $fields = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $fillable = [];
+        foreach ($fields as $v) {
+            if ($v['Field'] == 'id' || $v['Field'] == 'created_at') {
+                continue;
+            }
+
+            $fillable[] = $v['Field'];
+        }
+        $fillable = implode("','", $fillable);
+
+        /**
+         * 生成的文件名
+         */
+        $cname = ucfirst($tableName) . 'Controller';
+        $mname = ucfirst($tableName);
 
         /**
          * 生成控制器
          */
-        $cname = ucfirst($tableName) . 'Controller';
         ob_start();
         include ROOT . 'templates/controller.php';
         $str = ob_get_clean();
@@ -39,7 +49,6 @@ class CodeController
         /**
          * 生成模型
          */
-        $mname = ucfirst($tableName);
         ob_start();
         include ROOT . 'templates/model.php';
         $str = ob_get_clean();
@@ -54,9 +63,20 @@ class CodeController
         /**
          * 生成视图文件
          */
-        $this->currency('create', $tableName);
-        $this->currency('edit', $tableName);
-        $this->currency('index', $tableName);
+        ob_start();
+        include ROOT . "templates/create.html";
+        $str = ob_get_clean();
+        file_put_contents(ROOT . 'views/' . $tableName . '/create.html', $str);
+
+        ob_start();
+        include ROOT . "templates/create.html";
+        $str = ob_get_clean();
+        file_put_contents(ROOT . 'views/' . $tableName . '/edit.html', $str);
+
+        ob_start();
+        include ROOT . "templates/create.html";
+        $str = ob_get_clean();
+        file_put_contents(ROOT . 'views/' . $tableName . '/index.html', $str);
 
     }
 }

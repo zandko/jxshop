@@ -24,6 +24,9 @@ class DB
 
     }
 
+    /**
+     * 返回唯一的对象
+     */
     public static function getInstance()
     {
         if (!self::$_instance instanceof self) {
@@ -32,13 +35,27 @@ class DB
         return self::$_instance;
     }
 
+    /**
+     * 预处理执行sql
+     */
     public function prepare($sql)
     {
         return $this->_pdo->prepare($sql);
     }
 
+    /**
+     * 非预处理执行sql
+     */
     public function exec($sql)
     {
         return $this->_pdo->exec($sql);
+    }
+
+    /**
+     * 获取最新添加记录的ID
+     */
+    public function lastInsertId()
+    {
+        return $this->_pdo->lastInsertId();
     }
 }

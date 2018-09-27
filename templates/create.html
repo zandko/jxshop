@@ -19,11 +19,7 @@
     <div class="main-div">
         <form action="/<?=$tableName?>/insert" method="post" enctype="multipart/form-data">
             <table width="100%" id="general-table">
-                <?php foreach($fields as $v): 
-                    if($v['Field'] == 'id' || $v['Field'] == 'created_at')
-                        continue ;
-                ?>
-
+                <?php foreach($fields as $v): ?>
                 <tr>
                     <td class="label">
                         <?=$v['Comment']?>:</td>
@@ -48,8 +44,7 @@
         </form>
     </div>
 
-    <div id="footer">商城后台2016</div>
-
+    <?php view('common/footer'); ?>
 </body>
 
 </html>

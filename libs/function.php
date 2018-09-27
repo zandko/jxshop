@@ -9,3 +9,12 @@ function view($file, $data = [])
     $fileName = str_replace('.', '/', $file);
     require ROOT . 'views/' . $fileName . '.html';
 }
+
+/**
+ * 跳转页面
+ */
+function redirect($url)
+{
+    header("Location:" . $url);
+    edit;
+}

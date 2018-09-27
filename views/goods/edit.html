@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<title>管理中心 - 修改数据 </title>
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="/styles/general.css" rel="stylesheet" type="text/css" />
+<link href="/styles/main.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <h1>
+        <span class="action-span"><a href="/goods/index">数据列表</a></span>
+        <span class="action-span1"><a href="__GROUP__">管理中心</a></span>
+        <span id="search_id" class="action-span1"> - 修改数据 </span>
+        <div style="clear:both"></div>
+    </h1>
+    <div class="main-div">
+        <form action="/goods/update?id=<?=$data['id']?>" method="post" enctype="multipart/form-data">
+            <table width="100%" id="general-table">
+                <tr>
+                    <td class="label">商品名称:</td>
+                    <td>
+                        <input type='text' size="80" name='goods_name' value='<?=$data['goods_name']?>'>
+                        <font color="red">*</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">LOGO:</td>
+                    <td>
+                        <input type='text' size="80" name='logo' value='<?=$data['logo']?>'>
+                        <font color="red">*</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">是否上架:</td>
+                    <td>
+                        <input type="radio" name="is_on_sale" value="y" <?php if($data['is_on_sale']=='y' ) echo
+                            'checked' ; ?>> 是
+                        <input type="radio" name="is_on_sale" value="n" <?php if($data['is_on_sale']=='n' ) echo
+                            'checked' ; ?>> 否
+                        <font color="red">*</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">商品描述:</td>
+                    <td>
+                        <textarea name="description" id="" cols="80" rows="10"><?=$data['description']?></textarea>
+                        <font color="red">*</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">一级分类ID:</td>
+                    <td>
+                        <input type='text' size="80" name='cat1_id' value='<?=$data['cat1_id']?>'>
+                        <font color="red">*</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">二级分类ID:</td>
+                    <td>
+                        <input type='text' size="80" name='cat2_id' value='<?=$data['cat2_id']?>'>
+                        <font color="red">*</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">三级分类ID:</td>
+                    <td>
+                        <input type='text' size="80" name='cat3_id' value='<?=$data['cat3_id']?>'>
+                        <font color="red">*</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">品牌ID:</td>
+                    <td>
+                        <input type='text' size="80" name='brand_id' value='<?=$data['brand_id']?>'>
+                        <font color="red">*</font>
+                    </td>
+                </tr>
+            </table>
+            <div class="button-div">
+                <input type="submit" value="确定" />
+                <input type="reset" value="重置" />
+            </div>
+        </form>
+    </div>
+
+    <?=view('common/footer')?>
+</body>
+
+</html>
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/img_preview.js"></script>

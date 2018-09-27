@@ -19,18 +19,21 @@
     <div class="main-div">
         <form action="/<?=$tableName?>/insert" method="post" enctype="multipart/form-data">
             <table width="100%" id="general-table">
-                <?php foreach($fields as $v): ?>
+                <?php foreach($fields as $v): 
+                        if($v['Field'] == 'id' || $v['Field'] == 'created_at')
+                            continue ;
+                    ?>
                 <tr>
                     <td class="label">
                         <?=$v['Comment']?>:</td>
                     <td>
-                        <?php if($v['Type'] == 'longtext'): ?>
-                        <textarea name="<?=$v['Field']?>" id="" cols="70" rows="10"></textarea>
-                        <?php elseif(substr($v['Type'],0,4)=='enum'): ?>
+                        <?php if($v['Type']=='longtext'): ?>
+                        <textarea name="<?=$v['Field']?>" id="" cols="80" rows="10"></textarea>
+                        <?php elseif( substr($v['Type'],0,4) == 'enum'): ?>
                         <input type="radio" name="<?=$v['Field']?>" value="y" checked> 是
                         <input type="radio" name="<?=$v['Field']?>" value="n"> 否
                         <?php else: ?>
-                        <input type='text' name="<?=$v['Field']?>" maxlength="20" size='27' />
+                        <input type='text' size="80" name='<?=$v['Field']?>'>
                         <?php endif; ?>
                         <font color="red">*</font>
                     </td>
@@ -44,7 +47,8 @@
         </form>
     </div>
 
-    <?php view('common/footer'); ?>
+    <?="<?=view('common/footer')?>";?>
+
 </body>
 
 </html>

@@ -26,20 +26,18 @@
                 <?php endforeach; ?>
                 <th>操作</th>
             </tr>
-            <?php foreach($data as $v): ?>
+            <?='<?php foreach($data as $v): ?>';?>
             <tr>
-
                 <?php foreach($fields as $v): ?>
                 <td>
-                    <?=$v['$v['Field']']?>
-                </td>
+                    <?='<?=$v[\''.$v['Field'].'\']?>';?></td>
                 <?php endforeach; ?>
                 <td>
-                    <a href="/<?=$tableName?>/edit?id=<?=$v['id']?>">修改</a>
-                    <a onclick="return confirm('确定要删除吗?');" href="/<?=$tableName?>/delete?id=<?=$v['id']?>">删除</a>
+                    <a href="/<?=$tableName?>/edit?id=<?='<?=$v[\'id\']?>';?>">修改</a>
+                    <a onclick="return confirm('确定要删除吗？');" href="/<?=$tableName?>/delete?id=<?='<?=$v[\'id\']?>';?>">删除</a>
                 </td>
             </tr>
-            <?php endforeach; ?>
+            <?='<?php endforeach; ?>';?>
         </table>
 
         <!-- 分页开始 -->
@@ -47,15 +45,14 @@
             <tr>
                 <td width="80%">&nbsp;</td>
                 <td align="center" nowrap="true">
-                    <?=$page?>
+                    <?='<?=$page?>';?>
                 </td>
             </tr>
         </table>
         <!-- 分页结束 -->
     </div>
-    </form>
 
-    <?php view('common/footer'); ?>
+    <?="<?=view('common/footer')?>";?>
 </body>
 
 </html>

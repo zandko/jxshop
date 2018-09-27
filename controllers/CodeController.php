@@ -30,6 +30,7 @@ class CodeController
 
             $fillable[] = $v['Field'];
         }
+
         $fillable = implode("','", $fillable);
 
         /**
@@ -69,12 +70,12 @@ class CodeController
         file_put_contents(ROOT . 'views/' . $tableName . '/create.html', $str);
 
         ob_start();
-        include ROOT . "templates/create.html";
+        include ROOT . "templates/edit.html";
         $str = ob_get_clean();
         file_put_contents(ROOT . 'views/' . $tableName . '/edit.html', $str);
 
         ob_start();
-        include ROOT . "templates/create.html";
+        include ROOT . "templates/index.html";
         $str = ob_get_clean();
         file_put_contents(ROOT . 'views/' . $tableName . '/index.html', $str);
 

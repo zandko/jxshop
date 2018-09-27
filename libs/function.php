@@ -16,5 +16,4 @@ function view($file, $data = [])
 function redirect($url)
 {
     header("Location:" . $url);
-    edit;
 }

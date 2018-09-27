@@ -3,6 +3,7 @@
 namespace models;
 
 use libs\DB;
+use PDO;
 
 class Model
 {
@@ -32,20 +33,6 @@ class Model
     {}
 
     /**
-     * 接收表单中的数据
-     */
-    public function fill($data)
-    {
-        foreach ($data as $k => $v) {
-            if (!in_array($k, $this->fillable)) {
-                unset($data[$k]);
-            }
-        }
-
-        return $this->data = $data;
-    }
-
-    /**
      * 对表的添加功能
      */
     public function insert()
@@ -61,7 +48,7 @@ class Model
             $values[] = $v;
             $token[] = '?';
         }
-
+        
         $keys = implode(',', $keys);
         $token = implode(',', $token);
 
@@ -95,11 +82,9 @@ class Model
 
         $set = [];
         $values = [];
-        $token = [];
 
         foreach ($this->data as $k => $v) {
             $set[] = "$k=?";
-            $token = "?";
             $values[] = $v;
         }
 
@@ -107,6 +92,7 @@ class Model
         $values[] = $id;
 
         $stmt = $this->_db->prepare("UPDATE {$this->tableName} SET $set WHERE id=?");
+
         $stmt->execute($values);
 
         $this->_after_write();
@@ -145,7 +131,7 @@ class Model
 
         $stmt = $this->_db->prepare("SELECT COUNT(*) FROM {$this->tableName} WHERE {$_option['where']}");
         $stmt->execute();
-        $stmt->fetch(PDO::FETCH_COLUMN);
+        $count = $stmt->fetch(PDO::FETCH_COLUMN);
 
         $pageCount = ceil($count / $_option['per_page']);
 
@@ -168,9 +154,22 @@ class Model
     public function findOne($id)
     {
         $stmt = $this->_db->prepare("SELECT * FROM {$this->tableName} WHERE id=?");
-        $stmt->execute($id);
+        $stmt->execute([$id]);
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * 接收表单中的数据
+     */
+    public function fill($data)
+    {
+        foreach ($data as $k => $v) {
+            if (!in_array($k, $this->fillable)) {
+                unset($data[$k]);
+            }
+        }
+        return $this->data = $data;
     }
 
 }

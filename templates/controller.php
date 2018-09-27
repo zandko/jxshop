@@ -38,9 +38,9 @@ class <?=$cname?>
      * 显示修改的表单
      */
     public function edit()
-    {   
+    {
         $model = new <?=$mname?>;
-        $data = $mode->findOne($_GET['id']);
+        $data = $model->findOne($_GET['id']);
         view("/<?=$tableName?>/edit",[
             'data' => $data,
         ]);
@@ -54,7 +54,7 @@ class <?=$cname?>
         $model = new <?=$mname?>;
         $model->fill($_POST);
         $model->update($_GET['id']);
-        view('/<?=$tableName?>/index');
+        redirect('/<?=$tableName?>/index');
     }
 
     /**

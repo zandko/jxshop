@@ -35,7 +35,7 @@
                     <?=$v['id']?>
                 </td>
                 <td>
-                    <?=$v['cat_name']?>
+                    <?=str_repeat('&nbsp;',4*(count(explode('-',$v['path']))-2)).$v['cat_name']?>
                 </td>
                 <td>
                     <?=$v['parent_id']?>

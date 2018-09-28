@@ -20,14 +20,15 @@
                 <tr>
                     <td class="label">品牌名称:</td>
                     <td>
-                        <input type='text' size="80" name='brand_name' value='<?=$data['brand_name']?>'>
+                        <input type='text' size="80" name='brand_name' value='<?=$data[' brand_name']?>'>
                         <font color="red">*</font>
                     </td>
                 </tr>
                 <tr>
                     <td class="label">LOGO:</td>
                     <td>
-                        <input class="preview" type='file' size="80" name='logo' value='<?=$data['logo']?>'>
+                        <div class="img_preview"><img src="<?=$data['logo']?>" width="120" height="120"></div>
+                        <input class="preview" type='file' size="80" name='logo'>
                         <font color="red">*</font>
                     </td>
                 </tr>

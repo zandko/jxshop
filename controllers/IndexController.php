@@ -2,9 +2,12 @@
 
 namespace controllers;
 
+use models\Category;
+
 class IndexController
 {
-    public function index() {
+    public function index()
+    {
         view('index.index');
     }
 

@@ -1,18 +1,25 @@
-<?php 
+<?php
 
 namespace controllers;
 
 use models\Category;
 
-class CategoryController{
+class CategoryController
+{
     /**
      * 列表页
      */
     public function index()
     {
         $model = new Category;
-        $data = $model->findAll();
-        view('category.index',$data);
+
+        $data = $model->findAll([
+            'order_by' => "concat('path',id,'-')",
+            'order_way' => "asc",
+            'per_page' => 99999,
+        ]);
+        
+        view('category.index', $data);
     }
 
     /**
@@ -41,7 +48,7 @@ class CategoryController{
     {
         $model = new Category;
         $data = $model->findOne($_GET['id']);
-        view("/category/edit",[
+        view("/category/edit", [
             'data' => $data,
         ]);
     }

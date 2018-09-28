@@ -1,10 +1,11 @@
-<?php 
+<?php
 
 namespace controllers;
 
 use models\Brand;
 
-class BrandController{
+class BrandController
+{
     /**
      * 列表页
      */
@@ -12,7 +13,7 @@ class BrandController{
     {
         $model = new Brand;
         $data = $model->findAll();
-        view('brand.index',$data);
+        view('brand.index', $data);
     }
 
     /**
@@ -27,10 +28,11 @@ class BrandController{
      * 处理添加的表单
      */
     public function insert()
-    {
+    {   
         $model = new Brand;
         $model->fill($_POST);
         $model->insert();
+
         redirect('/brand/index');
     }
 
@@ -41,7 +43,7 @@ class BrandController{
     {
         $model = new Brand;
         $data = $model->findOne($_GET['id']);
-        view("/brand/edit",[
+        view("/brand/edit", [
             'data' => $data,
         ]);
     }

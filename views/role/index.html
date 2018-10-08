@@ -19,35 +19,53 @@
     <div class="list-div" id="listDiv">
         <table cellpadding="3" cellspacing="1">
             <tr>
-                                <th>
-                    ID                </th>
-                                <th>
-                    角色名称                </th>
-                                <th>操作</th>
+                <th>ID</th>
+                <th>角色名称 </th>
+                <th>权限名称</th>
+                <th>操作</th>
             </tr>
-            <?php foreach($data as $v): ?>            <tr>
-                                <td>
-                    <?=$v['id']?></td>
-                                <td>
-                    <?=$v['role_name']?></td>
-                                <td>
+            <?php foreach($data as $v): ?>
+            <tr>
+                <td>
+                    <?=$v['id']?>
+                </td>
+                <td>
+                    <?=$v['role_name']?>
+                </td>
+
+                <?php if($v['id']=='1'):?>
+                <td>
+                    *
+                </td>
+                <?php else: ?>
+                <td>
+                    <?=$v['pri_list']?>
+                </td>
+                <?php endif; ?>
+
+                <?php if($v['id']>1): ?>
+                <td>
                     <a href="/role/edit?id=<?=$v['id']?>">修改</a>
                     <a onclick="return confirm('确定要删除吗？');" href="/role/delete?id=<?=$v['id']?>">删除</a>
                 </td>
+                <?php endif; ?>
             </tr>
-            <?php endforeach; ?>        </table>
+            <?php endforeach; ?>
+        </table>
 
         <!-- 分页开始 -->
         <table id="page-table" cellspacing="0">
             <tr>
                 <td width="80%">&nbsp;</td>
                 <td align="center" nowrap="true">
-                    <?=$page?>                </td>
+                    <?=$page?>
+                </td>
             </tr>
         </table>
         <!-- 分页结束 -->
     </div>
 
-    <?=view('common/footer')?></body>
+    <?=view('common/footer')?>
+</body>
 
 </html>

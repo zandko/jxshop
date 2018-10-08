@@ -19,15 +19,30 @@
     <div class="main-div">
         <form action="/role/insert" method="post" enctype="multipart/form-data">
             <table width="100%" id="general-table">
-                                <tr>
+                <tr>
                     <td class="label">
                         角色名称:</td>
                     <td>
-                                                <input type='text' size="80" name='role_name'>
-                                                <font color="red">*</font>
+                        <input type='text' size="80" name='role_name'>
+                        <font color="red">*</font>
                     </td>
                 </tr>
-                            </table>
+            </table>
+
+            <br>
+            <table width="100%" id="general-table">
+                <tr>
+                    <td class="label">
+                        权限名称:</td>
+                    <td>
+                        <?php foreach($data as $v): ?>
+                        <?= str_repeat('>',$v['level']*4) ?>
+                        <input type="checkbox" name="pri_id[]" value="<?=$v['id']?>">
+                        <?=$v['pri_name']?> <br>
+                        <?php endforeach; ?>
+                    </td>
+                </tr>
+            </table>
             <div class="button-div">
                 <input type="submit" value=" 确定 " />
                 <input type="reset" value=" 重置 " />

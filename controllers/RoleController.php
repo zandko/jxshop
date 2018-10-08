@@ -1,18 +1,24 @@
-<?php 
+<?php
 
 namespace controllers;
 
+use models\Privilege;
 use models\Role;
 
-class RoleController{
+class RoleController
+{
     /**
      * 列表页
      */
     public function index()
     {
         $model = new Role;
-        $data = $model->findAll();
-        view('role.index',$data);
+        $data = $model->findAll([
+            'fields' => 'a.id,a.role_name,group_concat(c.pri_name) pri_list',
+            'join' => ' a left join role_privilege b on a.id=b.role_id left join privilege c on b.pri_id = c.id',
+            'groupby' => 'group by a.id',
+        ]);
+        view('role.index', $data);
     }
 
     /**
@@ -20,7 +26,9 @@ class RoleController{
      */
     public function create()
     {
-        view('role.create');
+        $model = new Privilege;
+        $data = $model->tree();
+        view('role.create', $data);
     }
 
     /**
@@ -41,7 +49,7 @@ class RoleController{
     {
         $model = new Role;
         $data = $model->findOne($_GET['id']);
-        view("/role/edit",[
+        view("/role/edit", [
             'data' => $data,
         ]);
     }

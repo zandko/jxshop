@@ -48,7 +48,7 @@ class Model
             $values[] = $v;
             $token[] = '?';
         }
-        
+
         $keys = implode(',', $keys);
         $token = implode(',', $token);
 
@@ -109,6 +109,8 @@ class Model
             'order_by' => 'id',
             'order_way' => 'desc',
             'per_page' => 20,
+            'join' => '',
+            'groupby' => '',
         ];
 
         if ($options) {
@@ -122,8 +124,8 @@ class Model
         $offset = ($page - 1) * $_option['per_page'];
 
         $stmt = $this->_db->prepare("SELECT {$_option['fields']}
-                                        FROM {$this->tableName}
-                                        WHERE {$_option['where']}
+                                        FROM {$this->tableName} {$_option['join']}
+                                        WHERE {$_option['where']} {$_option['groupby']}
                                         ORDER BY {$_option['order_by']} {$_option['order_way']}
                                         LIMIT $offset,{$_option['per_page']}");
         $stmt->execute();
@@ -170,6 +172,27 @@ class Model
             }
         }
         return $this->data = $data;
+    }
+
+    /**
+     * 递归排序
+     * 参数一、排序的数据
+     * 参数二、上级ID
+     * 参数三、第几级
+     */
+    protected function _tree($data, $parent_id = 0, $level = 0)
+    {
+        static $_ret = [];
+
+        foreach ($data as $v) {
+            if ($v['parent_id'] == $parent_id) {
+                $v['level'] = $level;
+                $_ret[] = $v;
+                $this->_tree($data, $v['id'], $level + 1);
+            }
+        }
+
+        return $_ret;
     }
 
 }

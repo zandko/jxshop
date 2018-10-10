@@ -17,14 +17,29 @@
     <div class="main-div">
         <form action="/role/update?id=<?=$data['id']?>" method="post" enctype="multipart/form-data">
             <table width="100%" id="general-table">
-                                        <tr>
-                        <td class="label">角色名称:</td>
-                        <td>
-                                                            <input type='text' size="80" name='role_name' value='<?=$data['role_name']?>'>
-                                                        <font color="red">*</font>
-                        </td>
-                    </tr>
-                                    </table>
+                <tr>
+                    <td class="label">角色名称:</td>
+                    <td>
+                        <input type='text' size="80" name='role_name' value='<?=$data['role_name']?>'>
+                        <font color="red">*</font>
+                    </td>
+                </tr>
+            </table>
+
+            <h3>选择权限</h3>
+            <table width="100%" id="general-table">
+                <tr>
+                    <td class="label">权限列表:</td>
+                    <td>
+                        <?php foreach($priData as $v): ?>
+                        <input type="checkbox" <?php if(in_array($v['id'],$priIds)) echo 'checked'; ?> name="pri_id[]" value="<?=$v['id']?>">
+                        <?=str_repeat('-', $v['level']*8)?>
+                        <?=$v['pri_name']?> <br><br>
+                        <?php endforeach; ?>
+                    </td>
+                </tr>
+            </table>
+
             <div class="button-div">
                 <input type="submit" value=" 确定 " />
                 <input type="reset" value=" 重置 " />

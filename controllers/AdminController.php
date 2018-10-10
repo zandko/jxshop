@@ -1,10 +1,11 @@
-<?php 
+<?php
 
 namespace controllers;
 
 use models\Admin;
 
-class AdminController{
+class AdminController extends BaseController
+{
     /**
      * 列表页
      */
@@ -12,7 +13,7 @@ class AdminController{
     {
         $model = new Admin;
         $data = $model->findAll();
-        view('admin.index',$data);
+        view('admin.index', $data);
     }
 
     /**
@@ -20,7 +21,9 @@ class AdminController{
      */
     public function create()
     {
-        view('admin.create');
+        $model = new \models\Role;
+        $data = $model->findAll();
+        view('admin.create', $data);
     }
 
     /**
@@ -41,7 +44,7 @@ class AdminController{
     {
         $model = new Admin;
         $data = $model->findOne($_GET['id']);
-        view("/admin/edit",[
+        view("/admin/edit", [
             'data' => $data,
         ]);
     }
@@ -66,4 +69,6 @@ class AdminController{
         $model->delete($_GET['id']);
         redirect("/admin/index");
     }
+
+    
 }

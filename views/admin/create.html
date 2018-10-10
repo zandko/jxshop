@@ -19,23 +19,35 @@
     <div class="main-div">
         <form action="/admin/insert" method="post" enctype="multipart/form-data">
             <table width="100%" id="general-table">
-                                <tr>
+                <tr>
                     <td class="label">
                         用户名:</td>
                     <td>
-                                                <input type='text' size="80" name='username'>
-                                                <font color="red">*</font>
+                        <input type='text' size="80" name='username'>
+                        <font color="red">*</font>
                     </td>
                 </tr>
-                                <tr>
+                <tr>
                     <td class="label">
                         密码:</td>
                     <td>
-                                                <input type='text' size="80" name='password'>
-                                                <font color="red">*</font>
+                        <input type='text' size="80" name='password'>
+                        <font color="red">*</font>
                     </td>
                 </tr>
-                            </table>
+            </table>
+            <h3>选择角色</h3>
+            <table width="100%" id="general-table">
+                <tr>
+                    <td class="label">角色列表:</td>
+                    <td>
+                        <?php foreach($data as $v): ?>
+                        <input type="checkbox" name="role_id[]" value="<?=$v['id']?>">
+                        <?=$v['role_name']?> <br><br>
+                        <?php endforeach; ?>
+                    </td>
+                </tr>
+            </table>
             <div class="button-div">
                 <input type="submit" value=" 确定 " />
                 <input type="reset" value=" 重置 " />

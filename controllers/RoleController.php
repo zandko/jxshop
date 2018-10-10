@@ -49,8 +49,16 @@ class RoleController
     {
         $model = new Role;
         $data = $model->findOne($_GET['id']);
+
+        $priModel = new Privilege;
+        $priData = $priModel->tree();
+
+        $priIds = $model -> getPriIds($_GET['id']);
+
         view("/role/edit", [
             'data' => $data,
+            'priData' => $priData,
+            'priIds' => $priIds,
         ]);
     }
 

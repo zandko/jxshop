@@ -13,12 +13,19 @@ class Role extends Model
 
     protected function _after_write()
     {
+        $id = isset($_GET['id']) ? $_GET['id'] : $this->data['id'];
+
+        $stmt = $this->_db->prepare("DELETE FROM role_privilege WHERE role_id=?");
+        $stmt->execute([
+            $id,
+        ]);
+
         $stmt = $this->_db->prepare("INSERT INTO role_privilege(pri_id,role_id) VALUES(?,?)");
         // 循环所有勾选的权限ID插入到中间表
         foreach ($_POST['pri_id'] as $v) {
             $stmt->execute([
                 $v,
-                $this->data['id'],
+                $id,
             ]);
         }
     }
@@ -29,5 +36,23 @@ class Role extends Model
         $stmt->execute(
             [$_GET['id']]
         );
+    }
+
+    public function getPriIds($roleId)
+    {
+        $stmt = $this->_db->prepare("SELECT pri_id FROM role_privilege WHERE role_id=?");
+        $stmt->execute([
+            $roleId,
+        ]);
+
+        $data = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        $_ret = [];
+
+        foreach ($data as $k => $v) {
+            $_ret[] = $v['pri_id'];
+        }
+
+        return $_ret;
     }
 }
